@@ -4,13 +4,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HeroDetailsComponent } from './pages/hero-details/hero-details.component';
 import { MyTeamComponent } from './pages/my-team/my-team.component';
-import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+import { PagesComponent } from './pages/pages.component';
 
 const routes: Routes = [
-  {path:'dashboard', component: DashboardComponent},
-  {path:'hero-details', component: HeroDetailsComponent},
-  {path:'my-team', component: MyTeamComponent},
-  {path:'', redirectTo: '/dashboard', pathMatch:'full'},
+  {
+    path: '', 
+    component: PagesComponent,
+    children:
+    [
+      {path:'dashboard', component: DashboardComponent},
+      {path:'hero-details', component: HeroDetailsComponent},
+      {path:'my-team', component: MyTeamComponent},
+      {path:'', redirectTo: '/dashboard', pathMatch:'full'},
+    ]
+  },
+  
   {path:'**', component: NopagefoundComponent},
 ];
 
