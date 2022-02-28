@@ -14,9 +14,6 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { CardsComponent } from './components/cards/cards.component';
 
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,

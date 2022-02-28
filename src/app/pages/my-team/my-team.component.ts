@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HeroCardInterface } from 'src/app/models/hero.interface';
+import { HeroService } from 'src/app/services/hero.service';
 
 @Component({
   selector: 'app-my-team',
@@ -8,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyTeamComponent implements OnInit {
 
-  constructor() { }
+  myHeroesTeam: HeroCardInterface[] = [];
+
+  constructor(private api:HeroService) { }
 
   ngOnInit(): void {
+    
+    this.getTeam();
+  }
+
+  getTeam()
+  {
+    this.api.getMyTeam();
   }
 
 }

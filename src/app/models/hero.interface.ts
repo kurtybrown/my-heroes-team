@@ -1,8 +1,7 @@
-export interface HeroInterface
+export interface HeroCardInterface
 {
     id: number,
     name : string,
-    description : string,
-    // thumbnail: Image,
-    // comics:
+    thumbnail: string,
+    
 }
