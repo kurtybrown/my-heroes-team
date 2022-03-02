@@ -8,6 +8,7 @@
   </div>
 
   <div class="row" style="justify-content: space-between;">
+    
     <div class="card border-danger mb-4" style="width: 15rem; ;" *ngFor="let hero of heroesList | paginate: {itemsPerPage: 10, currentPage: p}">
 
       <div class="card-header" style="text-align: center;">{{hero.name}}</div>
@@ -15,21 +16,20 @@
       <div class="card-body">
         <a href="">
       
-          <img src="{{hero.thumbnail}}" alt="" class="img-thumbnail">
+          <img src="{{hero.thumbnail}}" class="img-thumbnail">
       
         </a>
       </div>
 
       <div class="card-footer" style="justify-content:space-evenly; display: flex;">
-        <button class="btn btn-outline-success">
-          <i class="bi bi-plus-circle" (click)="addHero(hero.id)"></i>
+        <button class="btn btn-outline-success" (click)="addHero(hero)">
+          <i class="bi bi-plus-circle"></i>
         </button>
-        <button class="btn btn-info">
+        <button class="btn btn-info" (click)="heroDetailed(hero.id)">
           <i class="bi bi-search"></i>
         </button>
       </div>
 
     </div>
   </div>
-
 </div>

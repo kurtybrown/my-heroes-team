@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { HeroCardInterface } from '../models/hero.interface';
-import { CardsComponent } from '../components/cards/cards.component';
+import { map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,9 @@ export class HeroService {
   public hash = "c68f9631a42150736308e902fda00e01";
   public url = "https://gateway.marvel.com:443";
 
+  public heroId: number = 0;
+  public serviceHeroesTeam: HeroCardInterface[] = [];
+
   constructor(private http: HttpClient) {
 
   }
@@ -24,42 +28,61 @@ export class HeroService {
     return this.http.get<any>(address);
   }
 
+  public getHeroById(): Observable<any>
+  {
+    let address = `https://gateway.marvel.com:443/v1/public/characters/${this.heroId}?ts=1&apikey=${this.apiKey}&hash=${this.hash}`
+    return this.http.get<any>(address).pipe(map(response =>{
+      const heroDetail = {
+        id: response.data.results[0].id,
+        name: response.data.results[0].name,
+        thumbnail: response.data.results[0].thumbnail.path + ".jpg",
+        description: response.data.results[0].description
+      }
+      return heroDetail;  
+    }));
+  }
+
+  public getComicById(): Observable<any>
+  {
+    let address = `https://gateway.marvel.com:443/v1/public/characters/${this.heroId}/comics?ts=1&apikey=${this.apiKey}&hash=${this.hash}`
+    return this.http.get<any>(address).pipe(map(response =>
+      {
+        console.log(response);
+
+        let comicList: string[] = [];
+        for(let i=0; i<response.data.results.length; i++)
+        {
+          comicList.push(response.data.results[i].thumbnail.path + ".jpg")
+        }
+        return comicList;
+      }));
+  }
+
   public addHero(hero:HeroCardInterface)
   {
-    let auxHeroArr: HeroCardInterface[] = [];
+    let heroList: HeroCardInterface[] = JSON.parse(String(localStorage.getItem('heroes')));
 
-    auxHeroArr.push(hero);
-
-    let recoveredData = localStorage.getItem('hero');
-
-    if(recoveredData == null)
-    {
-      localStorage.setItem('hero', JSON.stringify(auxHeroArr));
-    } 
-    else 
-    {
-      let data = JSON.parse(recoveredData);
-      console.log(data);
-      
-      data.push(hero);
-      localStorage.setItem('hero', JSON.stringify(data));
-    }
+    heroList.push(hero);
+    const heroListString = JSON.stringify(heroList);
+    localStorage.setItem('heroes', heroListString);
   }
 
   getMyTeam()
   {
-    let checkLocalStorage = localStorage.getItem('hero');
-    let myHeroesTeam: CardsComponent[];
+    let checkLocalStorage = localStorage.getItem('heroes');
+
     if(checkLocalStorage == null)
     {
       return console.log("No heroes yet");
     }
     else
     {
-      myHeroesTeam = JSON.parse(checkLocalStorage);
-      console.log(myHeroesTeam);
-      
-      return myHeroesTeam;
+      this.serviceHeroesTeam = JSON.parse(checkLocalStorage);
     }
+  }
+
+  deleteHero()
+  {
+    localStorage.setItem('heroes', JSON.stringify(this.serviceHeroesTeam));
   }
 }

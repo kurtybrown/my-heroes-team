@@ -1,37 +1,22 @@
-<!-- <div class="card border-dark mb-3" style="max-width: 20rem;">
-    <div class="card-header">Header</div>
-    <div class="card-body">
-      <h4 class="card-title">Dark card title</h4>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-</div> -->
+<!-- <div class="card border-danger mb-4" style="width: 15rem; ;" *ngFor="let hero of heroesList | paginate: {itemsPerPage: 10, currentPage: p}">
 
-<div class="col-md-4">
+  <div class="card-header" style="text-align: center;">{{hero.name}}</div>
 
-  <a href="">
-
-    <img src="" alt="" class="img-thumbnail">
-
-  </a>
-
-  <h3 class="title">Nombre Heroe</h3>
-
-  <div class="row">
-
-    <button type="button" class="btn btn-outline-success">Añadir</button>
-    <button type="button" class="btn btn-info">Info</button>
-
+  <div class="card-body">
+    <a href="">
+  
+      <img src="{{hero.thumbnail}}" class="img-thumbnail">
+  
+    </a>
   </div>
 
-  <!-- <div class="card-footer" style="justify-content: flex-end; padding-right: 10px; display: flex;">
-    <button class="btn btn-warning">
-        <i class="material-icons">edit</i>
+  <div class="card-footer" style="justify-content:space-evenly; display: flex;">
+    <button class="btn btn-outline-success" (click)="addHero(hero.id)">
+      <i class="bi bi-plus-circle"></i>
     </button>
-    <button class="btn btn-danger">
-      <i class="material-icons">delete</i>
+    <button class="btn btn-info" (click)="heroDetailed(hero.id)">
+      <i class="bi bi-search"></i>
     </button>
-  </div> -->
+  </div>
 
-</div>
-
-<!-- </div> -->
+</div> -->

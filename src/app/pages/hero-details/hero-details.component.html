@@ -1,1 +1,29 @@
-<p>hero-details works!</p>
+<div class="row" style="margin-top: 35px; justify-content:space-evenly; display: flex;">
+    <div class="col-4">
+        <div class="card mb-3">
+            <h3 class="card-header"></h3>
+            <img src="{{myHero.thumbnail}}" class="img-thumbnail">
+            <div class="col" style="display: flex; justify-content: center;">
+                <li class="list-group-item">{{myHero.name}} </li>
+            </div>
+        </div>
+    </div>
+    <div class="col-10">
+        <div class="card">
+            <div class="card-body">
+                <h3>Descripcción:</h3>
+                <p>{{myHero.description}}</p>
+                <div class="row" style="display: flex; justify-content: center;">
+                    
+                        <h3>Comics:</h3>
+                    
+                    <div class="row">
+                        <div class="col-2" *ngFor = "let comic of myHero.comics">
+                            <img src="{{comic}}" style="max-width: 50%; min-width: 50%; max-height: 70%; min-height: 70%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
